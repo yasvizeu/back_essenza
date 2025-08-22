@@ -5,7 +5,10 @@ export abstract class Persona {
     name:string;
 
     @Column()
-    age:number;
+    birthDate:string;
+
+    @Column({unique: true})
+    cpf: string;
 
     @Column()
     email:string;

@@ -10,7 +10,7 @@ export class FichaAnamnese {
   healthProblems: string;
 
   @Column()
-  medicadions: string;
+  medications: string;
 
   @Column()
   allergies: string;
