@@ -5,6 +5,7 @@ import { PersonasModule } from './personas/personas.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { ProfissionalModule } from './profissional/profissional.module';
 import { FichaAnamneseModule } from './ficha-anamnese/ficha-anamnese.module';
+import { ProdutoModule } from './produto/produto.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -17,7 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     database: 'essenza',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true,
-  }), PersonasModule, ClientesModule, ProfissionalModule, FichaAnamneseModule],
+  }), PersonasModule, ClientesModule, ProfissionalModule, FichaAnamneseModule, ProdutoModule],
   controllers: [AppController],
   providers: [AppService],
 })

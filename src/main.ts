@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { DataSource } from '@nestjs/typeorm';
+import { seedDatabase } from './seed/seed-data';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,22 +16,20 @@ async function bootstrap() {
     credentials: true
   });
 
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
+
   await app.listen(process.env.PORT ?? 3000);
 
+  // Executar seed do banco de dados
+  try {
+    const dataSource = app.get(DataSource);
+    await seedDatabase(dataSource);
+  } catch (error) {
+    console.log('⚠️ Erro ao executar seed:', error.message);
+  }
 
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
+  console.log('🚀 Backend Essenza rodando na porta 3000');
+  console.log('📊 Banco de dados configurado e populado');
+  console.log('🔗 Frontend pode acessar: http://localhost:4200');
 }
 bootstrap();
-
-
-
-// async function bootstrap() {
-//   const app = await NestFactory.create(AppModule);
-//   await app.listen(process.env.PORT ?? 3000);
-//   app.enableCors({
-//     origin: 'http://localhost:4200',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     preflightContinue: false,
-//     optionsSuccessStatus: 204,
-//     credentials: true,
-//   })

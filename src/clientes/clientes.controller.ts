@@ -12,6 +12,11 @@ export class ClientesController {
     return this.clientesService.create(createClienteDto);
   }
 
+  @Post('login')
+  login(@Body() loginData: { email: string; password: string }) {
+    return this.clientesService.login(loginData);
+  }
+
   @Get()
   findAll() {
     return this.clientesService.findAll();
